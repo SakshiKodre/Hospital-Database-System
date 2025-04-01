@@ -1,0 +1,863 @@
+﻿CREATE DATABASE  IF NOT EXISTS PROJECT /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci / /!80016 DEFAULT ENCRYPTION='N' */;
+USE PROJECT;
+-- MySQL dump 10.13  Distrib 8.0.13, for macos10.14 (x86_64)
+-- Host: localhost    Database: PROJECT
+
+-- Server version	8.3.0
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT /;
+/!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS /;
+/!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION /;
+SET NAMES utf8 ;
+/!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE /;
+/!40103 SET TIME_ZONE='+00:00' /;
+/!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 /;
+/!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 /;
+/!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' /;
+/!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+--
+-- Table structure for table AppointmentDateTime
+DROP TABLE IF EXISTS AppointmentDateTime;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE AppointmentDateTime (
+AppointmentID int NOT NULL,
+DateTime datetime DEFAULT NULL,
+PRIMARY KEY (AppointmentID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table AppointmentDateTime
+-- ORDER BY:  AppointmentID
+LOCK TABLES AppointmentDateTime WRITE;
+/*!40000 ALTER TABLE AppointmentDateTime DISABLE KEYS /;
+INSERT INTO AppointmentDateTime (AppointmentID, DateTime) VALUES (1,'2024-03-25 10:00:00'),(2,'2024-03-27 14:00:00'),(3,'2024-03-29 09:00:00'),(4,'2024-03-31 11:00:00'),(5,'2024-04-02 13:00:00'),(6,'2024-04-04 15:00:00'),(7,'2024-04-06 08:00:00'),(8,'2024-04-08 10:00:00'),(9,'2024-04-10 12:00:00'),(10,'2024-04-12 14:00:00'),(11,'2024-04-14 16:00:00'),(12,'2024-04-16 18:00:00'),(13,'2024-04-18 08:00:00'),(14,'2024-04-20 10:00:00'),(15,'2024-04-22 12:00:00'),(16,'2024-04-24 14:00:00'),(17,'2024-04-26 16:00:00'),(18,'2024-04-28 08:00:00'),(19,'2024-04-30 10:00:00'),(20,'2024-03-25 10:00:00'),(21,'2024-03-27 14:00:00'),(22,'2024-03-29 09:00:00'),(23,'2024-03-31 11:00:00'),(24,'2024-04-02 13:00:00'),(25,'2024-04-04 15:00:00'),(26,'2024-04-06 08:00:00'),(27,'2024-04-08 10:00:00'),(28,'2024-04-10 12:00:00'),(29,'2024-04-12 14:00:00'),(30,'2024-04-14 16:00:00'),(31,'2024-04-16 18:00:00'),(32,'2024-04-18 08:00:00'),(33,'2024-04-20 10:00:00'),(34,'2024-04-22 12:00:00'),(35,'2024-04-24 14:00:00'),(36,'2024-04-26 16:00:00'),(37,'2024-04-28 08:00:00'),(38,'2024-04-30 10:00:00'),(39,'2024-03-25 10:00:00'),(40,'2024-03-27 14:00:00'),(41,'2024-03-29 09:00:00'),(42,'2024-03-31 11:00:00'),(43,'2024-04-02 13:00:00'),(44,'2024-04-04 15:00:00'),(45,'2024-04-06 08:00:00'),(46,'2024-04-08 10:00:00'),(47,'2024-04-10 12:00:00'),(48,'2024-04-12 14:00:00'),(49,'2024-04-14 16:00:00'),(50,'2024-04-16 18:00:00'),(51,'2024-04-18 08:00:00'),(52,'2024-04-20 10:00:00'),(53,'2024-04-22 12:00:00'),(54,'2024-04-24 14:00:00'),(55,'2024-04-26 16:00:00'),(56,'2024-04-28 08:00:00'),(57,'2024-04-30 10:00:00');
+/!40000 ALTER TABLE AppointmentDateTime ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table Appointments
+DROP TABLE IF EXISTS Appointments;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Appointments (
+AppointmentID int NOT NULL AUTO_INCREMENT,
+PatientID int DEFAULT NULL,
+StaffID int DEFAULT NULL,
+AppointmentType varchar(50) DEFAULT NULL,
+Status enum('Scheduled','Completed','Canceled') DEFAULT NULL,
+DateTimeID int DEFAULT NULL,
+AppointmentDateTime datetime DEFAULT NULL,
+PRIMARY KEY (AppointmentID),
+KEY fk_staff_id (StaffID),
+KEY DateTimeID (DateTimeID),
+KEY index_appointname (PatientID),
+CONSTRAINT appointments_ibfk_1 FOREIGN KEY (DateTimeID) REFERENCES AppointmentDateTime (AppointmentID),
+CONSTRAINT fk_patient_id FOREIGN KEY (PatientID) REFERENCES Patients (PatientID),
+CONSTRAINT fk_staff_id FOREIGN KEY (StaffID) REFERENCES MedicalStaff (StaffID)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Appointments
+-- ORDER BY:  AppointmentID
+LOCK TABLES Appointments WRITE;
+/!40000 ALTER TABLE Appointments DISABLE KEYS /;
+INSERT INTO Appointments (AppointmentID, PatientID, StaffID, AppointmentType, Status, DateTimeID, AppointmentDateTime) VALUES (1,2,2,'Check-up','Scheduled',NULL,'2024-03-25 10:00:00'),(2,3,3,'X-ray','Scheduled',NULL,'2024-03-27 14:00:00'),(3,4,4,'Consultation','Scheduled',NULL,'2024-03-29 09:00:00'),(4,5,5,'Procedure','Scheduled',NULL,'2024-03-31 11:00:00'),(5,6,6,'Check-up','Scheduled',NULL,'2024-04-02 13:00:00'),(6,7,7,'Chemotherapy','Scheduled',NULL,'2024-04-04 15:00:00'),(7,8,8,'Dermatology appointment','Scheduled',NULL,'2024-04-06 08:00:00'),(8,9,9,'Urology appointment','Scheduled',NULL,'2024-04-08 10:00:00'),(9,10,10,'Endocrinology appointment','Scheduled',NULL,'2024-04-10 12:00:00'),(10,11,11,'Psychiatry appointment','Scheduled',NULL,'2024-04-12 14:00:00'),(11,12,12,'Allergy test','Scheduled',NULL,'2024-04-14 16:00:00'),(12,13,13,'Eye exam','Scheduled',NULL,'2024-04-16 18:00:00'),(13,14,14,'Pulmonary function test','Scheduled',NULL,'2024-04-18 08:00:00'),(14,15,15,'ENT appointment','Scheduled',NULL,'2024-04-20 10:00:00'),(15,16,16,'Rheumatology appointment','Scheduled',NULL,'2024-04-22 12:00:00'),(16,17,17,'Hematology appointment','Scheduled',NULL,'2024-04-24 14:00:00'),(17,18,18,'Gastroenterology appointment','Scheduled',NULL,'2024-04-26 16:00:00'),(18,19,19,'Nephrology appointment','Scheduled',NULL,'2024-04-28 08:00:00'),(19,20,20,'Vascular surgery appointment','Scheduled',NULL,'2024-04-30 10:00:00'),(20,2,2,'Check-up','Scheduled',NULL,'2024-03-25 10:00:00'),(21,3,3,'X-ray','Scheduled',NULL,'2024-03-27 14:00:00'),(22,4,4,'Consultation','Scheduled',NULL,'2024-03-29 09:00:00'),(23,5,5,'Procedure','Scheduled',NULL,'2024-03-31 11:00:00'),(24,6,6,'Check-up','Scheduled',NULL,'2024-04-02 13:00:00'),(25,7,7,'Chemotherapy','Scheduled',NULL,'2024-04-04 15:00:00'),(26,8,8,'Dermatology appointment','Scheduled',NULL,'2024-04-06 08:00:00'),(27,9,9,'Urology appointment','Scheduled',NULL,'2024-04-08 10:00:00'),(28,10,10,'Endocrinology appointment','Scheduled',NULL,'2024-04-10 12:00:00'),(29,11,11,'Psychiatry appointment','Scheduled',NULL,'2024-04-12 14:00:00'),(30,12,12,'Allergy test','Scheduled',NULL,'2024-04-14 16:00:00'),(31,13,13,'Eye exam','Scheduled',NULL,'2024-04-16 18:00:00'),(32,14,14,'Pulmonary function test','Scheduled',NULL,'2024-04-18 08:00:00'),(33,15,15,'ENT appointment','Scheduled',NULL,'2024-04-20 10:00:00'),(34,16,16,'Rheumatology appointment','Scheduled',NULL,'2024-04-22 12:00:00'),(35,17,17,'Hematology appointment','Scheduled',NULL,'2024-04-24 14:00:00'),(36,18,18,'Gastroenterology appointment','Scheduled',NULL,'2024-04-26 16:00:00'),(37,19,19,'Nephrology appointment','Scheduled',NULL,'2024-04-28 08:00:00'),(38,20,20,'Vascular surgery appointment','Scheduled',NULL,'2024-04-30 10:00:00'),(39,2,2,'Check-up','Scheduled',NULL,'2024-03-25 10:00:00'),(40,3,3,'X-ray','Scheduled',NULL,'2024-03-27 14:00:00'),(41,4,4,'Consultation','Scheduled',NULL,'2024-03-29 09:00:00'),(42,5,5,'Procedure','Scheduled',NULL,'2024-03-31 11:00:00'),(43,6,6,'Check-up','Scheduled',NULL,'2024-04-02 13:00:00'),(44,7,7,'Chemotherapy','Scheduled',NULL,'2024-04-04 15:00:00'),(45,8,8,'Dermatology appointment','Scheduled',NULL,'2024-04-06 08:00:00'),(46,9,9,'Urology appointment','Scheduled',NULL,'2024-04-08 10:00:00'),(47,10,10,'Endocrinology appointment','Scheduled',NULL,'2024-04-10 12:00:00'),(48,11,11,'Psychiatry appointment','Scheduled',NULL,'2024-04-12 14:00:00'),(49,12,12,'Allergy test','Scheduled',NULL,'2024-04-14 16:00:00'),(50,13,13,'Eye exam','Scheduled',NULL,'2024-04-16 18:00:00'),(51,14,14,'Pulmonary function test','Scheduled',NULL,'2024-04-18 08:00:00'),(52,15,15,'ENT appointment','Scheduled',NULL,'2024-04-20 10:00:00'),(53,16,16,'Rheumatology appointment','Scheduled',NULL,'2024-04-22 12:00:00'),(54,17,17,'Hematology appointment','Scheduled',NULL,'2024-04-24 14:00:00'),(55,18,18,'Gastroenterology appointment','Scheduled',NULL,'2024-04-26 16:00:00'),(56,19,19,'Nephrology appointment','Scheduled',NULL,'2024-04-28 08:00:00'),(57,20,20,'Vascular surgery appointment','Scheduled',NULL,'2024-04-30 10:00:00'),(58,1,1,'Checkup','Scheduled',NULL,'2024-04-25 10:00:00'),(59,2,1,'Follow-up','Scheduled',NULL,'2024-04-25 10:45:00');
+/!40000 ALTER TABLE Appointments ENABLE KEYS /;
+UNLOCK TABLES;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+/!50003 CREATE/ /!50017 DEFINER=root@localhost/ /!50003 TRIGGER before_appointment_insert BEFORE INSERT ON appointments FOR EACH ROW BEGIN
+DECLARE appointment_count INT;
+-- Check if there's an existing appointment with the same staff member and overlapping time
+SELECT COUNT() INTO appointment_count
+FROM Appointments a
+WHERE StaffID = NEW.StaffID
+AND (
+(NEW.AppointmentDateTime BETWEEN a.AppointmentDateTime AND ADDTIME(a.AppointmentDateTime, '00:30:00'))
+OR (a.AppointmentDateTime BETWEEN NEW.AppointmentDateTime AND ADDTIME(NEW.AppointmentDateTime, '00:30:00'))
+);
+-- If there's a conflict, prevent the insertion
+IF appointment_count > 0 THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Time conflict with existing appointment for this staff member.';
+END IF;
+END /;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection */ ;
+--
+-- Table structure for table Billing
+DROP TABLE IF EXISTS Billing;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Billing (
+BillingID int NOT NULL AUTO_INCREMENT,
+PatientID int DEFAULT NULL,
+DateOfService date DEFAULT NULL,
+BilledAmount decimal(10,2) DEFAULT NULL,
+PaymentStatus enum('Pending','Paid','Partially Paid') DEFAULT NULL,
+PaymentDetails text,
+PRIMARY KEY (BillingID),
+KEY fk_patient_id_billing (PatientID),
+CONSTRAINT fk_patient_id_billing FOREIGN KEY (PatientID) REFERENCES Patients (PatientID)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Billing
+-- ORDER BY:  BillingID
+LOCK TABLES Billing WRITE;
+/*!40000 ALTER TABLE Billing DISABLE KEYS /;
+INSERT INTO Billing (BillingID, PatientID, DateOfService, BilledAmount, PaymentStatus, PaymentDetails) VALUES (1,2,'2024-03-25',200.00,'Pending',NULL),(2,3,'2024-03-27',300.00,'Paid','Payment received via credit card'),(3,4,'2024-03-29',400.00,'Pending',NULL),(4,5,'2024-03-31',5000.00,'Pending',NULL),(5,6,'2024-04-02',150.00,'Paid','Payment received in cash'),(6,7,'2024-04-04',1200.00,'Pending',NULL),(7,8,'2024-04-06',250.00,'Pending',NULL),(8,9,'2024-04-08',100.00,'Paid','Payment received via check'),(9,10,'2024-04-10',180.00,'Pending',NULL),(10,11,'2024-04-12',350.00,'Pending',NULL),(11,12,'2024-04-14',75.00,'Paid','Payment received via credit card'),(12,13,'2024-04-16',80.00,'Pending',NULL),(13,14,'2024-04-18',100.00,'Pending',NULL),(14,15,'2024-04-20',1500.00,'Pending',NULL),(15,16,'2024-04-22',200.00,'Pending',NULL),(16,17,'2024-04-24',250.00,'Pending',NULL),(17,18,'2024-04-26',300.00,'Pending',NULL),(18,19,'2024-04-28',500.00,'Pending',NULL),(19,20,'2024-04-30',5000.00,'Pending',NULL);
+/!40000 ALTER TABLE Billing ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table ContactInfo
+DROP TABLE IF EXISTS ContactInfo;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE ContactInfo (
+ContactID int NOT NULL AUTO_INCREMENT,
+ContactNumber varchar(20) DEFAULT NULL,
+Email varchar(255) DEFAULT NULL,
+Address text,
+PRIMARY KEY (ContactID)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table ContactInfo
+-- ORDER BY:  ContactID
+LOCK TABLES ContactInfo WRITE;
+/*!40000 ALTER TABLE ContactInfo DISABLE KEYS /;
+INSERT INTO ContactInfo (ContactID, ContactNumber, Email, Address) VALUES (1,'123-456-7890',NULL,NULL),(2,'555-789-1234',NULL,NULL),(3,'888-444-7777',NULL,NULL),(4,'777-888-9999',NULL,NULL),(5,'555-555-5555',NULL,NULL),(6,'444-333-2222',NULL,NULL),(7,'666-777-8888',NULL,NULL),(8,'999-888-7777',NULL,NULL),(9,'222-333-4444',NULL,NULL),(10,'333-444-5555',NULL,NULL),(11,'888-999-1111',NULL,NULL),(12,'111-222-3333',NULL,NULL),(13,'444-555-6666',NULL,NULL),(14,'222-111-3333',NULL,NULL),(15,'777-666-5555',NULL,NULL),(16,'333-222-1111',NULL,NULL),(17,'555-666-7777',NULL,NULL),(18,'555-444-3333',NULL,NULL);
+/!40000 ALTER TABLE ContactInfo ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table Departments
+DROP TABLE IF EXISTS Departments;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Departments (
+DepartmentID int NOT NULL AUTO_INCREMENT,
+DepartmentName varchar(100) DEFAULT NULL,
+DepartmentHead varchar(255) DEFAULT NULL,
+ContactNumber varchar(20) DEFAULT NULL,
+PRIMARY KEY (DepartmentID)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Departments
+-- ORDER BY:  DepartmentID
+LOCK TABLES Departments WRITE;
+/*!40000 ALTER TABLE Departments DISABLE KEYS /;
+INSERT INTO Departments (DepartmentID, DepartmentName, DepartmentHead, ContactNumber) VALUES (1,'Cardiology','Dr. Smith','555-123-4567'),(2,'Pediatrics','Dr. Lee','555-555-5555'),(3,'Radiology','Dr. Brown','555-123-7890'),(4,'Neurology','Dr. Johnson','555-987-6543'),(5,'Orthopedics','Dr. Garcia','555-222-3333'),(6,'Gynecology','Dr. Martinez','555-444-5555'),(7,'Oncology','Dr. Nguyen','555-666-7777'),(8,'Dermatology','Dr. Wilson','555-999-8888'),(9,'Urology','Dr. Clark','555-777-6666'),(10,'Endocrinology','Dr. Scott','555-111-2222'),(11,'Psychiatry','Dr. Young','555-666-5555'),(12,'Allergy','Dr. Carter','555-333-4444'),(13,'Ophthalmology','Dr. White','555-222-3333'),(14,'Pulmonology','Dr. Lopez','555-888-9999'),(15,'ENT','Dr. Hall','555-444-7777'),(16,'Rheumatology','Dr. King','555-333-2222'),(17,'Hematology','Dr. Martinez','555-666-3333'),(18,'Gastroenterology','Dr. Rodriguez','555-777-8888'),(19,'Nephrology','Dr. Taylor','555-888-7777'),(20,'Vascular Surgery','Dr. Hernandez','555-999-6666');
+/!40000 ALTER TABLE Departments ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table EmergencyContacts
+DROP TABLE IF EXISTS EmergencyContacts;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE EmergencyContacts (
+EmergencyContactID int NOT NULL AUTO_INCREMENT,
+Name varchar(255) DEFAULT NULL,
+ContactNumber varchar(20) DEFAULT NULL,
+PRIMARY KEY (EmergencyContactID)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table EmergencyContacts
+-- ORDER BY:  EmergencyContactID
+LOCK TABLES EmergencyContacts WRITE;
+/*!40000 ALTER TABLE EmergencyContacts DISABLE KEYS /;
+INSERT INTO EmergencyContacts (EmergencyContactID, Name, ContactNumber) VALUES (1,'Jane Doe','987-654-3210'),(2,'John Smith','333-222-1111'),(3,'Susan Johnson','222-333-4444'),(4,'Robert Brown','111-222-3333'),(5,'Mary Wilson','999-888-7777'),(6,'Mark Taylor','666-777-8888'),(7,'Carlos Martinez','555-444-3333'),(8,'Laura Lee','111-222-3333'),(9,'Maria Garcia','555-666-7777'),(10,'Jose Hernandez','888-999-1111'),(11,'Sarah Clark','666-555-4444'),(12,'Juan Rodriguez','777-888-9999'),(13,'Jennifer Young','222-111-3333'),(14,'Ryan Scott','777-666-5555'),(15,'Thomas Nguyen','999-888-7777'),(16,'Elizabeth King','444-555-6666'),(17,'David Carter','666-777-8888'),(18,'Michelle White','333-222-1111'),(19,'Robert Lopez','555-444-3333'),(20,'Nancy Hall','222-333-4444');
+/!40000 ALTER TABLE EmergencyContacts ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table EventLog
+DROP TABLE IF EXISTS EventLog;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE EventLog (
+LogID int NOT NULL AUTO_INCREMENT,
+EventDescription varchar(255) DEFAULT NULL,
+EventTime timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (LogID)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table EventLog
+-- ORDER BY:  LogID
+LOCK TABLES EventLog WRITE;
+/*!40000 ALTER TABLE EventLog DISABLE KEYS /;
+INSERT INTO EventLog (LogID, EventDescription, EventTime) VALUES (1,'Mail has been sent to the patient: Fin Doe2','2024-04-21 21:09:12'),(2,'Mail has been sent to the patient: Sakshi Kodre','2024-04-21 21:09:32'),(3,'Mail has been sent to the patient: Young Joe','2024-04-23 21:33:51'),(4,'Mail has been sent to the patient: ','2024-04-23 21:33:59'),(5,'Message has been sent to the patient: Sakshi Kodre','2024-04-23 21:36:42');
+/!40000 ALTER TABLE EventLog ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table Insurance
+DROP TABLE IF EXISTS Insurance;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Insurance (
+InsuranceID int NOT NULL AUTO_INCREMENT,
+Provider varchar(255) DEFAULT NULL,
+PolicyNumber varchar(50) DEFAULT NULL,
+PRIMARY KEY (InsuranceID)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Insurance
+-- ORDER BY:  InsuranceID
+LOCK TABLES Insurance WRITE;
+/*!40000 ALTER TABLE Insurance DISABLE KEYS /;
+INSERT INTO Insurance (InsuranceID, Provider, PolicyNumber) VALUES (1,'ABC Insurance',NULL),(2,'XYZ Insurance',NULL),(3,'123 Health',NULL),(4,'Healthcare Inc.',NULL),(5,'Global Insurance',NULL),(6,'Health Partners',NULL),(7,'MediCare',NULL),(8,'Insurance Central',NULL),(9,'Health Shield',NULL),(10,'MediPlan',NULL),(11,'Healthcare Solutions',NULL),(12,'InsureMe',NULL),(13,'HealthWise',NULL),(14,'AssureCare',NULL),(15,'SureHealth',NULL),(16,'HealthGuard',NULL),(17,'HealthyLiving',NULL),(18,'InsuraCare',NULL),(19,'HealthPlan',NULL),(20,'InsureCo',NULL);
+/!40000 ALTER TABLE Insurance ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table Inventory
+DROP TABLE IF EXISTS Inventory;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Inventory (
+ItemID int NOT NULL AUTO_INCREMENT,
+ItemName varchar(100) DEFAULT NULL,
+QuantityOnHand int DEFAULT NULL,
+ReorderLevel int DEFAULT NULL,
+SupplierName varchar(255) DEFAULT NULL,
+SupplierContactNumber varchar(20) DEFAULT NULL,
+StorageLocation varchar(255) DEFAULT NULL,
+PRIMARY KEY (ItemID)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Inventory
+-- ORDER BY:  ItemID
+LOCK TABLES Inventory WRITE;
+/*!40000 ALTER TABLE Inventory DISABLE KEYS /;
+INSERT INTO Inventory (ItemID, ItemName, QuantityOnHand, ReorderLevel, SupplierName, SupplierContactNumber, StorageLocation) VALUES (1,'Bandages',200,50,'Medical Supplies Inc.','800-987-6543','Supply Room B'),(2,'Disposable Gloves',500,100,'Gloves Plus','888-222-3333','Sterilization Room'),(3,'Surgical Masks',3000,500,'MediSupplies','555-666-7777','OR Storage'),(4,'Sterile Gauze',400,100,'Gauze & More','999-444-7777','Supply Room A'),(5,'Alcohol Swabs',1000,200,'MediWipes','111-222-3333','Treatment Room 1'),(6,'IV Fluids',200,50,'Fluid Solutions Inc.','555-999-8888','Pharmacy'),(7,'Catheters',100,20,'Catheter World','777-888-9999','Cath Lab'),(8,'Oxygen Tanks',50,10,'Oxygen Plus','888-777-6666','Emergency Room'),(9,'Defibrillator Units',10,5,'DefibCo','333-444-5555','Emergency Room'),(10,'EKG Machines',5,2,'HeartTech','222-333-4444','Cardiology Department'),(11,'Ultrasound Machines',3,1,'UltraScan Inc.','111-222-3333','Radiology Department'),(12,'X-ray Machines',2,1,'Radiographica','444-555-6666','Radiology Department'),(13,'MRI Machines',1,1,'MRI Services Ltd.','777-888-9999','Radiology Department'),(14,'Surgical Instruments Set',10,3,'SurgiTools','666-777-8888','Operating Room'),(15,'Anesthesia Machines',3,1,'AnesTech','999-888-7777','Operating Room'),(16,'Ventilators',5,2,'VentCo','888-777-6666','ICU'),(17,'Blood Pressure Monitors',20,5,'MediMeter','555-444-3333','Nurse Station'),(18,'Stethoscopes',30,10,'HeartBeat Supplies','777-666-5555','Nurse Station'),(19,'Wheelchairs',15,5,'Mobility Solutions','222-333-4444','Patient Transport'),(20,'Stretchers',10,3,'Stretcher World','444-555-6666','Emergency Department');
+/!40000 ALTER TABLE Inventory ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table MedicalRecords
+DROP TABLE IF EXISTS MedicalRecords;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE MedicalRecords (
+RecordID int NOT NULL AUTO_INCREMENT,
+PatientID int DEFAULT NULL,
+VisitDate date DEFAULT NULL,
+Diagnosis text,
+LabTestResults text,
+ImagingReports text,
+Notes text,
+PRIMARY KEY (RecordID),
+KEY fk_patient_id_medical_records (PatientID),
+CONSTRAINT fk_patient_id_medical_records FOREIGN KEY (PatientID) REFERENCES Patients (PatientID)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table MedicalRecords
+-- ORDER BY:  RecordID
+LOCK TABLES MedicalRecords WRITE;
+/!40000 ALTER TABLE MedicalRecords DISABLE KEYS /;
+INSERT INTO MedicalRecords (RecordID, PatientID, VisitDate, Diagnosis, LabTestResults, ImagingReports, Notes) VALUES (1,2,'2024-03-25','Routine check-up, hypertension management','Demo Lab Test Results23',NULL,'Patients blood pressure within normal range'),(2,3,'2024-03-27','Suspected pneumonia','Demo Lab Test Results',NULL,'Patient advised to rest and follow up in one week'),(3,4,'2024-03-29','MRI ordered for further evaluation',NULL,NULL,'Patient reported persistent headaches'),(4,5,'2024-03-31','Severe knee osteoarthritis',NULL,NULL,'Patient scheduled for pre-operative evaluation'),(5,6,'2024-04-02','Routine gynecological exam',NULL,NULL,'Patient is due for HPV vaccine'),(6,7,'2024-04-04','Stage II breast cancer',NULL,NULL,'Patient experiencing mild nausea after chemotherapy'),(7,8,'2024-04-06','Suspicious skin lesion',NULL,NULL,'Biopsy results pending'),(8,9,'2024-04-08','Benign prostatic hyperplasia',NULL,NULL,'Prescribed medication for symptom relief'),(9,10,'2024-04-10','Thyroid nodule',NULL,NULL,'Refer to endocrinologist for further evaluation'),(10,11,'2024-04-12','Generalized anxiety disorder',NULL,NULL,'Start cognitive-behavioral therapy'),(11,12,'2024-04-14','Suspected allergic rhinitis',NULL,NULL,'Avoidance of allergens recommended'),(12,13,'2024-04-16','Blurry vision',NULL,NULL,'Prescription for corrective lenses provided'),(13,14,'2024-04-18','Chronic obstructive pulmonary disease',NULL,NULL,'Adjustments to inhaler regimen needed'),(14,15,'2024-04-20','Recurrent tonsillitis',NULL,NULL,'Patient scheduled for surgery in two weeks'),(15,16,'2024-04-22','Rheumatoid arthritis flare-up',NULL,NULL,'Start on corticosteroid therapy'),(16,17,'2024-04-24','Anemia of chronic disease',NULL,NULL,'Iron supplementation prescribed'),(17,18,'2024-04-26','Gastric ulcer',NULL,NULL,'Biopsy results awaited'),(18,19,'2024-04-28','Chronic kidney disease',NULL,NULL,'Three sessions per week prescribed'),(19,20,'2024-04-30','Peripheral artery disease',NULL,NULL,'Patient scheduled for surgery next month'),(20,2,'2024-03-25','Routine check-up, hypertension management','Demo Lab Test Results23',NULL,'Patients blood pressure within normal range'),(21,3,'2024-03-27','Suspected pneumonia','Demo Lab Test Results',NULL,'Patient advised to rest and follow up in one week'),(22,4,'2024-03-29','MRI ordered for further evaluation',NULL,NULL,'Patient reported persistent headaches'),(23,5,'2024-03-31','Severe knee osteoarthritis',NULL,NULL,'Patient scheduled for pre-operative evaluation'),(24,6,'2024-04-02','Routine gynecological exam',NULL,NULL,'Patient is due for HPV vaccine'),(25,7,'2024-04-04','Stage II breast cancer',NULL,NULL,'Patient experiencing mild nausea after chemotherapy'),(26,8,'2024-04-06','Suspicious skin lesion',NULL,NULL,'Biopsy results pending'),(27,9,'2024-04-08','Benign prostatic hyperplasia',NULL,NULL,'Prescribed medication for symptom relief'),(28,10,'2024-04-10','Thyroid nodule',NULL,NULL,'Refer to endocrinologist for further evaluation'),(29,11,'2024-04-12','Generalized anxiety disorder',NULL,NULL,'Start cognitive-behavioral therapy'),(30,12,'2024-04-14','Suspected allergic rhinitis',NULL,NULL,'Avoidance of allergens recommended'),(31,13,'2024-04-16','Blurry vision',NULL,NULL,'Prescription for corrective lenses provided'),(32,14,'2024-04-18','Chronic obstructive pulmonary disease',NULL,NULL,'Adjustments to inhaler regimen needed'),(33,15,'2024-04-20','Recurrent tonsillitis',NULL,NULL,'Patient scheduled for surgery in two weeks'),(34,16,'2024-04-22','Rheumatoid arthritis flare-up',NULL,NULL,'Start on corticosteroid therapy'),(35,17,'2024-04-24','Anemia of chronic disease',NULL,NULL,'Iron supplementation prescribed'),(36,18,'2024-04-26','Gastric ulcer',NULL,NULL,'Biopsy results awaited'),(37,19,'2024-04-28','Chronic kidney disease',NULL,NULL,'Three sessions per week prescribed'),(38,20,'2024-04-30','Peripheral artery disease',NULL,NULL,'Patient scheduled for surgery next month');
+/!40000 ALTER TABLE MedicalRecords ENABLE KEYS /;
+UNLOCK TABLES;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+/!50003 CREATE/ /!50017 DEFINER=root@localhost/ /*!50003 TRIGGER pdatedMedicalRecords AFTER UPDATE ON medicalrecords FOR EACH ROW BEGIN
+INSERT INTO table_UpdatedMedicalRecords (Username, UpdateTime, OldLabTestResults, NewLabTestResults)
+VALUES (user(), sysdate(), OLD.LabTestResults, NEW.LabTestResults);
+END /;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection */ ;
+--
+-- Table structure for table MedicalStaff
+DROP TABLE IF EXISTS MedicalStaff;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE MedicalStaff (
+StaffID int NOT NULL AUTO_INCREMENT,
+Name varchar(255) NOT NULL,
+Specialization varchar(255) DEFAULT NULL,
+ContactNumber varchar(20) DEFAULT NULL,
+EmploymentStatus enum('Full-Time','Part-Time','Contract') DEFAULT NULL,
+Credentials text,
+DepartmentID int DEFAULT NULL,
+PRIMARY KEY (StaffID),
+KEY fk_department_id (DepartmentID),
+CONSTRAINT fk_department_id FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table MedicalStaff
+-- ORDER BY:  StaffID
+LOCK TABLES MedicalStaff WRITE;
+/*!40000 ALTER TABLE MedicalStaff DISABLE KEYS /;
+INSERT INTO MedicalStaff (StaffID, Name, Specialization, ContactNumber, EmploymentStatus, Credentials, DepartmentID) VALUES (1,'Dr. Smith','Cardiologist','98816435123','Full-Time','MD, FACC',1),(2,'Dr. Lee','Pediatrician','98816435123','Full-Time','MD, FAAP',2),(3,'Dr. Brown','Radiologist','90001643510','Part-Time','MD, FRANZCR',3),(4,'Dr. Johnson','Neurologist','90001643510','Full-Time','MD, FAAN',4),(5,'Dr. Garcia','Orthopedic Surgeon','90001643510','Part-Time','MD, FAAOS',5),(6,'Dr. Martinez','Gynecologist','90001643510','Full-Time','MD, FACOG',6),(7,'Dr. Nguyen','Oncologist','90001643510','Full-Time','MD, FACP',7),(8,'Dr. Wilson','Dermatologist','90001643510','Full-Time','MD, FAAD',8),(9,'Dr. Clark','Urologist','90001643510','Part-Time','MD, FACS',9),(10,'Dr. Scott','Endocrinologist','90001643510','Full-Time','MD, FACE',10),(11,'Dr. Young','Psychiatrist','90001643510','Part-Time','MD, FAPA',11),(12,'Dr. Carter','Allergist','90001643510','Full-Time','MD, FACAAI',12),(13,'Dr. White','Ophthalmologist','90001643510','Full-Time','MD, FACS',13),(14,'Dr. Lopez','Pulmonologist','90001643510','Part-Time','MD, FCCP',14),(15,'Dr. Hall','ENT Specialist','90001643510','Full-Time','MD, FACS',15),(16,'Dr. King','Rheumatologist','90001643510','Full-Time','MD, FACR',16),(17,'Dr. Martinez','Hematologist','90001643510','Part-Time','MD, FACP',17),(18,'Dr. Rodriguez','Gastroenterologist','90001643510','Full-Time','MD, FACG',18),(19,'Dr. Taylor','Nephrologist','90001643510','Part-Time','MD, FACP',19),(20,'Dr. Hernandez','Vascular Surgeon','90001643510','Full-Time','MD, FACS',20),(21,'Dr. Smith','Cardiologist','90001643510','Full-Time','MD, FACC',1),(22,'Dr. Lee','Pediatrician','90001643510','Full-Time','MD, FAAP',2),(23,'Dr. Brown','Radiologist','90001643510','Part-Time','MD, FRANZCR',3),(24,'Dr. Johnson','Neurologist','90001643510','Full-Time','MD, FAAN',4),(25,'Dr. Garcia','Orthopedic Surgeon','90001643510','Part-Time','MD, FAAOS',5),(26,'Dr. Martinez','Gynecologist','90001643510','Full-Time','MD, FACOG',6),(27,'Dr. Nguyen','Oncologist','90001643510','Full-Time','MD, FACP',7),(28,'Dr. Wilson','Dermatologist','90001643510','Full-Time','MD, FAAD',8),(29,'Dr. Clark','Urologist','90001643510','Part-Time','MD, FACS',9),(30,'Dr. Scott','Endocrinologist','90001643510','Full-Time','MD, FACE',10),(31,'Dr. Young','Psychiatrist','90001643510','Part-Time','MD, FAPA',11),(32,'Dr. Carter','Allergist','90001643510','Full-Time','MD, FACAAI',12),(33,'Dr. White','Ophthalmologist','90001643510','Full-Time','MD, FACS',13),(34,'Dr. Lopez','Pulmonologist','90001643510','Part-Time','MD, FCCP',14),(35,'Dr. Hall','ENT Specialist','90001643510','Full-Time','MD, FACS',15),(36,'Dr. King','Rheumatologist','90001643510','Full-Time','MD, FACR',16),(37,'Dr. Martinez','Hematologist','90001643510','Part-Time','MD, FACP',17),(38,'Dr. Rodriguez','Gastroenterologist','90001643510','Full-Time','MD, FACG',18),(39,'Dr. Taylor','Nephrologist','90001643510','Part-Time','MD, FACP',19),(40,'Dr. Hernandez','Vascular Surgeon','90001643510','Full-Time','MD, FACS',20);
+/!40000 ALTER TABLE MedicalStaff ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Temporary view structure for view medicalstaffinformation
+DROP TABLE IF EXISTS medicalstaffinformation;
+/!50001 DROP VIEW IF EXISTS medicalstaffinformation/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8mb4;
+/!50001 CREATE VIEW medicalstaffinformation AS SELECT
+1 AS StaffID,
+1 AS Name,
+1 AS Specialization,
+1 AS DepartmentName,
+1 AS EmploymentStatus,
+1 AS ContactNumber,
+1 AS ShiftDate,
+1 AS StartTime,
+1 AS EndTime,
+1 AS AppointmentType,
+1 AS PatientName/;
+SET character_set_client = @saved_cs_client;
+--
+-- Table structure for table Medications
+DROP TABLE IF EXISTS Medications;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Medications (
+MedicationID int NOT NULL AUTO_INCREMENT,
+MedicationName varchar(100) DEFAULT NULL,
+Dosage varchar(50) DEFAULT NULL,
+AdministrationRoute varchar(50) DEFAULT NULL,
+SpecialInstructions text,
+PRIMARY KEY (MedicationID)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Medications
+-- ORDER BY:  MedicationID
+LOCK TABLES Medications WRITE;
+/*!40000 ALTER TABLE Medications DISABLE KEYS /;
+INSERT INTO Medications (MedicationID, MedicationName, Dosage, AdministrationRoute, SpecialInstructions) VALUES (1,'Ibuprofen','200 mg','Oral','Take with water'),(2,'Amoxicillin','500 mg','Oral','Take with food'),(3,'Lisinopril','10 mg','Oral','Once daily'),(4,'Levothyroxine','50 mcg','Oral','Take on an empty stomach'),(5,'Atorvastatin','20 mg','Oral','Take at bedtime'),(6,'Metformin','1000 mg','Oral','Take with meals'),(7,'Albuterol','90 mcg','Inhalation','As needed for asthma symptoms'),(8,'Insulin','10 units','Subcutaneous','Administer according to blood glucose levels'),(9,'Warfarin','5 mg','Oral','Monitor INR regularly'),(10,'Gabapentin','300 mg','Oral','Take three times daily'),(11,'Omeprazole','20 mg','Oral','Take before breakfast'),(12,'Clopidogrel','75 mg','Oral','Take with or without food'),(13,'Diazepam','5 mg','Oral','As needed for anxiety'),(14,'Furosemide','40 mg','Oral','Take in the morning'),(15,'Hydrocodone','5 mg','Oral','As needed for pain'),(16,'Citalopram','20 mg','Oral','Take once daily'),(17,'Prednisone','10 mg','Oral','Take with food'),(18,'Cephalexin','250 mg','Oral','Take four times daily'),(19,'Amiodarone','200 mg','Oral','Take with meals'),(20,'Ranitidine','150 mg','Oral','Take before bedtime');
+/!40000 ALTER TABLE Medications ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Temporary view structure for view patientbillinginformation
+DROP TABLE IF EXISTS patientbillinginformation;
+/!50001 DROP VIEW IF EXISTS patientbillinginformation/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8mb4;
+/!50001 CREATE VIEW patientbillinginformation AS SELECT
+1 AS PatientID,
+1 AS Name,
+1 AS Gender,
+1 AS BillingID,
+1 AS DateOfService,
+1 AS PaymentStatus,
+1 AS PaymentDetails/;
+SET character_set_client = @saved_cs_client;
+--
+-- Table structure for table PatientMedications
+DROP TABLE IF EXISTS PatientMedications;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE PatientMedications (
+RecordID int NOT NULL AUTO_INCREMENT,
+PatientID int DEFAULT NULL,
+MedicationID int DEFAULT NULL,
+PrescribedDosage varchar(50) DEFAULT NULL,
+AdministrationTime datetime DEFAULT NULL,
+AdministeringStaffID int DEFAULT NULL,
+Instructions text,
+PRIMARY KEY (RecordID),
+KEY FK_PatientMedications_Patients (PatientID),
+KEY FK_PatientMedications_Medications (MedicationID),
+KEY idx_administering_staff (AdministeringStaffID),
+CONSTRAINT FK_PatientMedications_Medications FOREIGN KEY (MedicationID) REFERENCES Medications (MedicationID),
+CONSTRAINT FK_PatientMedications_Patients FOREIGN KEY (PatientID) REFERENCES Patients (PatientID)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table PatientMedications
+-- ORDER BY:  RecordID
+LOCK TABLES PatientMedications WRITE;
+/*!40000 ALTER TABLE PatientMedications DISABLE KEYS /;
+INSERT INTO PatientMedications (RecordID, PatientID, MedicationID, PrescribedDosage, AdministrationTime, AdministeringStaffID, Instructions) VALUES (1,1,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(2,1,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(3,1,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(4,1,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(5,1,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(6,2,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(7,2,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(8,2,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(9,2,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(10,2,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(11,3,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(12,3,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(13,3,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(14,3,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(15,3,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(16,4,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(17,4,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(18,4,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(19,4,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(20,4,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(21,5,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(22,5,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(23,5,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(24,5,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(25,5,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(26,6,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(27,6,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(28,6,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(29,6,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(30,6,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(31,7,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(32,7,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(33,7,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(34,7,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(35,7,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(36,8,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(37,8,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(38,8,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(39,8,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(40,8,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(41,9,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(42,9,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(43,9,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(44,9,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(45,9,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(46,10,5,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(47,10,4,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(48,10,3,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(49,10,2,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.'),(50,10,1,'50mg','2024-04-13 22:50:14',1,'Follow dosage as prescribed.');
+/!40000 ALTER TABLE PatientMedications ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table Patients
+DROP TABLE IF EXISTS Patients;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Patients (
+PatientID int NOT NULL AUTO_INCREMENT,
+Name varchar(255) NOT NULL,
+DateOfBirth date DEFAULT NULL,
+Gender enum('Male','Female','Other') DEFAULT NULL,
+MedicalHistory text,
+Allergies text,
+ContactInfoID int DEFAULT NULL,
+EmergencyContactID int DEFAULT NULL,
+InsuranceID int DEFAULT NULL,
+PRIMARY KEY (PatientID),
+KEY FK_Patients_ContactInfo (ContactInfoID),
+KEY FK_Patients_EmergencyContacts (EmergencyContactID),
+KEY FK_Patients_Insurance (InsuranceID),
+CONSTRAINT FK_Patients_ContactInfo FOREIGN KEY (ContactInfoID) REFERENCES ContactInfo (ContactID),
+CONSTRAINT FK_Patients_EmergencyContacts FOREIGN KEY (EmergencyContactID) REFERENCES EmergencyContacts (EmergencyContactID),
+CONSTRAINT FK_Patients_Insurance FOREIGN KEY (InsuranceID) REFERENCES Insurance (InsuranceID)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Patients
+-- ORDER BY:  PatientID
+LOCK TABLES Patients WRITE;
+/!40000 ALTER TABLE Patients DISABLE KEYS /;
+INSERT INTO Patients (PatientID, Name, DateOfBirth, Gender, MedicalHistory, Allergies, ContactInfoID, EmergencyContactID, InsuranceID) VALUES (1,'John Doe','1990-05-15','Male','No significant medical history','None',1,1,1),(2,'Jane Smith','1985-09-20','Female','Hypertension, Diabetes','Peanuts',2,2,2),(3,'Michael Johnson','1978-03-10','Male','Asthma','None',3,3,3),(4,'Sarah Brown','1995-12-02','Female','None','Shellfish',4,4,4),(5,'David Wilson','1980-08-18','Male','None','None',5,5,5),(6,'Emily Taylor','1992-11-30','Female','Allergies: Pollen, Penicillin','None',6,6,6),(7,'Jessica Martinez','1982-07-25','Female','Diabetes','None',7,7,7),(8,'Daniel Lee','1976-04-12','Male','None','None',8,8,8),(9,'Andrew Garcia','1993-09-05','Male','None','Peanuts',9,9,9),(10,'Olivia Hernandez','1988-02-28','Female','Asthma, Hypertension','None',10,10,10),(11,'William Clark','1970-01-15','Male','None','None',11,11,11),(12,'Sophia Rodriguez','1991-06-10','Female','Allergies: Dust, Cat hair','None',12,12,12),(13,'Matthew Young','1986-03-22','Male','None','None',13,13,13),(14,'Ava Scott','1984-10-08','Female','None','None',14,14,14),(15,'Emma Nguyen','1994-07-17','Female','None','Peanuts',15,15,15),(16,'Alexander King','1975-05-29','Male','None','None',16,16,16),(17,'Mia Carter','1989-12-13','Female','Allergies: Latex, Seafood','None',17,17,17),(18,'Benjamin White','1987-08-09','Male','None','None',7,18,18),(19,'Chloe Lopez','1983-04-05','Female','Asthma','None',12,19,19),(20,'Ethan Hall','1996-01-20','Male','None','None',18,20,20),(21,'John Doe','1990-04-15','Male','No significant history','None',1,1,1),(22,'Young Joe','1990-03-12','Other','No significant history','None',1,1,1),(23,'John Doe2','1990-04-15','Male','No significant history','None',1,1,1),(28,'Fin Doe2','1990-04-15','Male','No significant history','None',1,1,1),(29,'Fin Doe2','1990-04-15','Male','No significant history','None',1,1,1),(30,'Sakshi Kodre','1990-04-15','Male','No significant history','None',1,1,1),(31,'Young Joe','1990-03-12','Other','No significant history','None',1,1,1),(32,'','1990-03-12','Other','No significant history','None',1,1,1),(33,'Sakshi Kodre','1990-04-15','Male','No significant history','None',1,1,1);
+/!40000 ALTER TABLE Patients ENABLE KEYS /;
+UNLOCK TABLES;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+/!50003 CREATE/ /!50017 DEFINER=root@localhost/ /!50003 TRIGGER before_patient_insert BEFORE INSERT ON patients FOR EACH ROW BEGIN
+IF NEW.Name IS NULL OR NEW.DateOfBirth IS NULL OR NEW.Gender IS NULL OR NEW.MedicalHistory IS NULL OR NEW.Allergies IS NULL OR NEW.ContactInfoID IS NULL OR NEW.EmergencyContactID IS NULL THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Required fields must not be empty.';
+END IF;
+END /;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection / ;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+/!50003 CREATE/ /!50017 DEFINER=root@localhost/ /*!50003 TRIGGER after_patient_insert AFTER INSERT ON patients FOR EACH ROW BEGIN
+INSERT INTO EventLog (EventDescription)
+VALUES (CONCAT('Message has been sent to the patient: ', NEW.Name));
+END /;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection */ ;
+--
+-- Temporary view structure for view patienttreatmentdetails
+DROP TABLE IF EXISTS patienttreatmentdetails;
+/!50001 DROP VIEW IF EXISTS patienttreatmentdetails/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8mb4;
+/!50001 CREATE VIEW patienttreatmentdetails AS SELECT
+1 AS PatientID,
+1 AS Name,
+1 AS TreatmentID,
+1 AS TreatmentDetailID,
+1 AS ProcedureDescription,
+1 AS DateTime/;
+SET character_set_client = @saved_cs_client;
+--
+-- Table structure for table Scheduling
+DROP TABLE IF EXISTS Scheduling;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Scheduling (
+ScheduleID int NOT NULL AUTO_INCREMENT,
+StaffID int DEFAULT NULL,
+Date date DEFAULT NULL,
+StartTime time DEFAULT NULL,
+EndTime time DEFAULT NULL,
+AvailabilityStatus enum('Available','Unavailable') DEFAULT NULL,
+PRIMARY KEY (ScheduleID),
+KEY fk_staff_id_scheduling (StaffID),
+CONSTRAINT fk_staff_id_scheduling FOREIGN KEY (StaffID) REFERENCES MedicalStaff (StaffID)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Scheduling
+-- ORDER BY:  ScheduleID
+LOCK TABLES Scheduling WRITE;
+/*!40000 ALTER TABLE Scheduling DISABLE KEYS /;
+INSERT INTO Scheduling (ScheduleID, StaffID, Date, StartTime, EndTime, AvailabilityStatus) VALUES (1,1,'2024-03-28','08:00:00','16:00:00','Available'),(2,2,'2024-03-30','09:00:00','13:00:00','Available'),(3,3,'2024-04-01','10:00:00','14:00:00','Available'),(4,4,'2024-04-03','11:00:00','15:00:00','Available'),(5,5,'2024-04-05','12:00:00','16:00:00','Available'),(6,6,'2024-04-07','13:00:00','17:00:00','Available'),(7,7,'2024-04-09','14:00:00','18:00:00','Available'),(8,8,'2024-04-11','15:00:00','19:00:00','Available'),(9,9,'2024-04-13','16:00:00','20:00:00','Available'),(10,10,'2024-04-15','17:00:00','21:00:00','Available'),(11,11,'2024-04-17','08:00:00','12:00:00','Available'),(12,12,'2024-04-19','09:00:00','13:00:00','Available'),(13,13,'2024-04-21','10:00:00','14:00:00','Available'),(14,14,'2024-04-23','11:00:00','15:00:00','Available'),(15,15,'2024-04-25','12:00:00','16:00:00','Available'),(16,16,'2024-04-27','13:00:00','17:00:00','Available'),(17,17,'2024-04-29','14:00:00','18:00:00','Available'),(18,18,'2024-05-01','15:00:00','19:00:00','Available'),(19,19,'2024-05-03','16:00:00','20:00:00','Available'),(20,20,'2024-05-05','17:00:00','21:00:00','Available');
+/!40000 ALTER TABLE Scheduling ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table StaffDepartments
+DROP TABLE IF EXISTS StaffDepartments;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE StaffDepartments (
+StaffID int NOT NULL,
+DepartmentID int NOT NULL,
+PRIMARY KEY (StaffID,DepartmentID),
+KEY FK_StaffDepartments_Departments (DepartmentID),
+CONSTRAINT FK_StaffDepartments_Departments FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID),
+CONSTRAINT FK_StaffDepartments_Staff FOREIGN KEY (StaffID) REFERENCES MedicalStaff (StaffID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table StaffDepartments
+-- ORDER BY:  StaffID,DepartmentID
+LOCK TABLES StaffDepartments WRITE;
+/*!40000 ALTER TABLE StaffDepartments DISABLE KEYS /;
+INSERT INTO StaffDepartments (StaffID, DepartmentID) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,1),(22,2),(23,3),(24,4),(25,5),(26,6),(27,7),(28,8),(29,9),(30,10),(31,11),(32,12),(33,13),(34,14),(35,15),(36,16),(37,17),(38,18),(39,19),(40,20);
+/!40000 ALTER TABLE StaffDepartments ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table table_UpdatedMedicalRecords
+DROP TABLE IF EXISTS table_UpdatedMedicalRecords;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE table_UpdatedMedicalRecords (
+Username varchar(50) DEFAULT NULL,
+UpdateTime timestamp NULL DEFAULT NULL,
+OldLabTestResults text,
+NewLabTestResults text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table table_UpdatedMedicalRecords
+LOCK TABLES table_UpdatedMedicalRecords WRITE;
+/*!40000 ALTER TABLE table_UpdatedMedicalRecords DISABLE KEYS /;
+INSERT INTO table_UpdatedMedicalRecords (Username, UpdateTime, OldLabTestResults, NewLabTestResults) VALUES ('root@localhost','2024-04-17 03:29:37',NULL,'Demo Lab Test Results'),('root@localhost','2024-04-17 03:29:37',NULL,'Demo Lab Test Results'),('root@localhost','2024-04-17 03:29:37',NULL,'Demo Lab Test Results'),('root@localhost','2024-04-17 03:29:37',NULL,'Demo Lab Test Results'),('root@localhost','2024-04-17 03:29:45','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:29:45','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:29:45','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:29:45','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:02','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:02','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:02','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:02','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:08','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:08','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:08','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:08','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:19','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:19','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:19','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 03:31:19','Demo Lab Test Results','Demo Lab Test Results'),('root@localhost','2024-04-17 22:16:34','Demo Lab Test Results','Demo Lab Test Results23'),('root@localhost','2024-04-17 22:16:34','Demo Lab Test Results','Demo Lab Test Results23'),('root@localhost','2024-04-17 22:16:34','Demo Lab Test Results','Demo Lab Test Results23'),('root@localhost','2024-04-17 22:16:34','Demo Lab Test Results','Demo Lab Test Results23'),('root@localhost','2024-04-21 20:53:28',NULL,'Demo Lab Test Results'),('root@localhost','2024-04-21 20:53:28',NULL,'Demo Lab Test Results'),('root@localhost','2024-04-21 20:53:28',NULL,'Demo Lab Test Results'),('root@localhost','2024-04-21 20:53:28',NULL,'Demo Lab Test Results');
+/!40000 ALTER TABLE table_UpdatedMedicalRecords ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table TreatmentDateTime
+DROP TABLE IF EXISTS TreatmentDateTime;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE TreatmentDateTime (
+TreatmentID int NOT NULL,
+DateTime datetime DEFAULT NULL,
+PRIMARY KEY (TreatmentID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table TreatmentDateTime
+-- ORDER BY:  TreatmentID
+LOCK TABLES TreatmentDateTime WRITE;
+/*!40000 ALTER TABLE TreatmentDateTime DISABLE KEYS /;
+INSERT INTO TreatmentDateTime (TreatmentID, DateTime) VALUES (1,'2024-03-25 11:00:00'),(2,'2024-03-27 15:00:00'),(3,'2024-03-29 10:00:00'),(4,'2024-03-31 12:00:00'),(5,'2024-04-02 14:00:00'),(6,'2024-04-04 16:00:00'),(7,'2024-04-06 09:00:00'),(8,'2024-04-08 11:00:00'),(9,'2024-04-10 13:00:00'),(10,'2024-04-12 15:00:00'),(11,'2024-04-14 17:00:00'),(12,'2024-04-16 19:00:00'),(13,'2024-04-18 10:00:00'),(14,'2024-04-20 12:00:00'),(15,'2024-04-22 14:00:00'),(16,'2024-04-24 16:00:00'),(17,'2024-04-26 18:00:00'),(18,'2024-04-28 08:30:00'),(19,'2024-04-30 10:30:00');
+/!40000 ALTER TABLE TreatmentDateTime ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table TreatmentDetails
+DROP TABLE IF EXISTS TreatmentDetails;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE TreatmentDetails (
+TreatmentDetailID int NOT NULL AUTO_INCREMENT,
+TreatmentID int DEFAULT NULL,
+ProcedureCode varchar(50) DEFAULT NULL,
+ProcedureDescription text,
+InventoryItemID int DEFAULT NULL,
+PRIMARY KEY (TreatmentDetailID),
+KEY FK_TreatmentDetails_Treatments (TreatmentID),
+KEY InventoryItemID (InventoryItemID),
+CONSTRAINT FK_TreatmentDetails_Treatments FOREIGN KEY (TreatmentID) REFERENCES Treatments (TreatmentID),
+CONSTRAINT treatmentdetails_ibfk_1 FOREIGN KEY (InventoryItemID) REFERENCES Inventory (ItemID)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table TreatmentDetails
+-- ORDER BY:  TreatmentDetailID
+LOCK TABLES TreatmentDetails WRITE;
+/*!40000 ALTER TABLE TreatmentDetails DISABLE KEYS /;
+INSERT INTO TreatmentDetails (TreatmentDetailID, TreatmentID, ProcedureCode, ProcedureDescription, InventoryItemID) VALUES (1,1,'A100','Routine annual physical checks and lab tests',NULL),(2,2,'X200','Diagnostic X-ray of the chest',NULL),(3,3,'M300','Magnetic Resonance Imaging for detailed body scans',NULL),(4,4,'K400','Surgical replacement of the knee joint',NULL),(5,5,'P500','Screening test for cervical cancer',NULL),(6,6,'C600','Series of chemical drug therapy for cancer treatment',NULL),(7,7,'S700','Removal of tissue sample for testing',NULL),(8,8,'P800','Examination to assess prostate health',NULL),(9,9,'T900','Ultrasound imaging for thyroid gland',NULL),(10,10,'P110','Assessment and diagnosis of mental health conditions',NULL),(11,11,'A120','Test to identify allergic reaction triggers',NULL),(12,12,'E130','Assessment of vision and eye health',NULL),(13,13,'P140','Tests to measure lung function and capacity',NULL),(14,14,'T150','Surgical removal of tonsils',NULL),(15,15,'J160','Procedure for relieving joint pain',NULL),(16,16,'R170','Management and treatment for arthritis',NULL),(17,17,'B180','Sampling of bone marrow for disease diagnosis',NULL),(18,18,'E190','Visual examination of internal digestive system',NULL),(19,19,'H200','Medical procedure to purify blood',NULL),(20,1,'A100','Routine annual physical checks and lab tests',NULL),(21,2,'X200','Diagnostic X-ray of the chest',NULL),(22,3,'M300','Magnetic Resonance Imaging for detailed body scans',NULL),(23,4,'K400','Surgical replacement of the knee joint',NULL),(24,5,'P500','Screening test for cervical cancer',NULL),(25,6,'C600','Series of chemical drug therapy for cancer treatment',NULL),(26,7,'S700','Removal of tissue sample for testing',NULL),(27,8,'P800','Examination to assess prostate health',NULL),(28,9,'T900','Ultrasound imaging for thyroid gland',NULL),(29,10,'P110','Assessment and diagnosis of mental health conditions',NULL),(30,11,'A120','Test to identify allergic reaction triggers',NULL),(31,12,'E130','Assessment of vision and eye health',NULL),(32,13,'P140','Tests to measure lung function and capacity',NULL),(33,14,'T150','Surgical removal of tonsils',NULL),(34,15,'J160','Procedure for relieving joint pain',NULL),(35,16,'R170','Management and treatment for arthritis',NULL),(36,17,'B180','Sampling of bone marrow for disease diagnosis',NULL),(37,18,'E190','Visual examination of internal digestive system',NULL),(38,19,'H200','Medical procedure to purify blood',NULL),(39,1,'A100','Routine annual physical checks and lab tests',NULL),(40,2,'X200','Diagnostic X-ray of the chest',NULL),(41,3,'M300','Magnetic Resonance Imaging for detailed body scans',NULL),(42,4,'K400','Surgical replacement of the knee joint',NULL),(43,5,'P500','Screening test for cervical cancer',NULL),(44,6,'C600','Series of chemical drug therapy for cancer treatment',NULL),(45,7,'S700','Removal of tissue sample for testing',NULL),(46,8,'P800','Examination to assess prostate health',NULL),(47,9,'T900','Ultrasound imaging for thyroid gland',NULL),(48,10,'P110','Assessment and diagnosis of mental health conditions',NULL),(49,11,'A120','Test to identify allergic reaction triggers',NULL),(50,12,'E130','Assessment of vision and eye health',NULL),(51,13,'P140','Tests to measure lung function and capacity',NULL),(52,14,'T150','Surgical removal of tonsils',NULL),(53,15,'J160','Procedure for relieving joint pain',NULL),(54,16,'R170','Management and treatment for arthritis',NULL),(55,17,'B180','Sampling of bone marrow for disease diagnosis',NULL),(56,18,'E190','Visual examination of internal digestive system',NULL),(57,19,'H200','Medical procedure to purify blood',NULL),(58,1,'A100','Routine annual physical checks and lab tests',NULL),(59,2,'X200','Diagnostic X-ray of the chest',NULL),(60,3,'M300','Magnetic Resonance Imaging for detailed body scans',NULL),(61,4,'K400','Surgical replacement of the knee joint',NULL),(62,5,'P500','Screening test for cervical cancer',NULL),(63,6,'C600','Series of chemical drug therapy for cancer treatment',NULL),(64,7,'S700','Removal of tissue sample for testing',NULL),(65,8,'P800','Examination to assess prostate health',NULL),(66,9,'T900','Ultrasound imaging for thyroid gland',NULL),(67,10,'P110','Assessment and diagnosis of mental health conditions',NULL),(68,11,'A120','Test to identify allergic reaction triggers',NULL),(69,12,'E130','Assessment of vision and eye health',NULL),(70,13,'P140','Tests to measure lung function and capacity',NULL),(71,14,'T150','Surgical removal of tonsils',NULL),(72,15,'J160','Procedure for relieving joint pain',NULL),(73,16,'R170','Management and treatment for arthritis',NULL),(74,17,'B180','Sampling of bone marrow for disease diagnosis',NULL),(75,18,'E190','Visual examination of internal digestive system',NULL),(76,19,'H200','Medical procedure to purify blood',NULL),(77,1,'A100','Routine annual physical checks and lab tests',NULL),(78,2,'X200','Diagnostic X-ray of the chest',NULL),(79,3,'M300','Magnetic Resonance Imaging for detailed body scans',NULL),(80,4,'K400','Surgical replacement of the knee joint',NULL),(81,5,'P500','Screening test for cervical cancer',NULL),(82,6,'C600','Series of chemical drug therapy for cancer treatment',NULL),(83,7,'S700','Removal of tissue sample for testing',NULL),(84,8,'P800','Examination to assess prostate health',NULL),(85,9,'T900','Ultrasound imaging for thyroid gland',NULL),(86,10,'P110','Assessment and diagnosis of mental health conditions',NULL),(87,11,'A120','Test to identify allergic reaction triggers',NULL),(88,12,'E130','Assessment of vision and eye health',NULL),(89,13,'P140','Tests to measure lung function and capacity',NULL),(90,14,'T150','Surgical removal of tonsils',NULL),(91,15,'J160','Procedure for relieving joint pain',NULL),(92,16,'R170','Management and treatment for arthritis',NULL),(93,17,'B180','Sampling of bone marrow for disease diagnosis',NULL),(94,18,'E190','Visual examination of internal digestive system',NULL),(95,19,'H200','Medical procedure to purify blood',NULL);
+/!40000 ALTER TABLE TreatmentDetails ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table TreatmentInventory
+DROP TABLE IF EXISTS TreatmentInventory;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE TreatmentInventory (
+TreatmentDetailID int DEFAULT NULL,
+InventoryItemID int DEFAULT NULL,
+KEY TreatmentDetailID (TreatmentDetailID),
+KEY InventoryItemID (InventoryItemID),
+CONSTRAINT treatmentinventory_ibfk_1 FOREIGN KEY (TreatmentDetailID) REFERENCES TreatmentDetails (TreatmentDetailID),
+CONSTRAINT treatmentinventory_ibfk_2 FOREIGN KEY (InventoryItemID) REFERENCES Inventory (ItemID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table TreatmentInventory
+LOCK TABLES TreatmentInventory WRITE;
+/*!40000 ALTER TABLE TreatmentInventory DISABLE KEYS /;
+INSERT INTO TreatmentInventory (TreatmentDetailID, InventoryItemID) VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(2,1),(2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12),(2,13),(2,14),(2,15),(2,16),(2,17),(2,18),(2,19),(2,20),(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14),(3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(4,7),(4,8),(4,9),(4,10),(4,11),(4,12),(4,13),(4,14),(4,15),(4,16),(4,17),(4,18),(4,19),(4,20);
+/!40000 ALTER TABLE TreatmentInventory ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table Treatments
+DROP TABLE IF EXISTS Treatments;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE Treatments (
+TreatmentID int NOT NULL AUTO_INCREMENT,
+PatientID int DEFAULT NULL,
+StaffID int DEFAULT NULL,
+Description text,
+DateTimeID int DEFAULT NULL,
+Datetime datetime DEFAULT NULL,
+PRIMARY KEY (TreatmentID),
+KEY DateTimeID (DateTimeID),
+KEY FK_Treatments_Patients (PatientID),
+KEY FK_Treatments_Staff (StaffID),
+CONSTRAINT FK_Treatments_Patients FOREIGN KEY (PatientID) REFERENCES Patients (PatientID),
+CONSTRAINT FK_Treatments_Staff FOREIGN KEY (StaffID) REFERENCES MedicalStaff (StaffID),
+CONSTRAINT treatments_ibfk_1 FOREIGN KEY (DateTimeID) REFERENCES TreatmentDateTime (TreatmentID)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table Treatments
+-- ORDER BY:  TreatmentID
+LOCK TABLES Treatments WRITE;
+/*!40000 ALTER TABLE Treatments DISABLE KEYS /;
+INSERT INTO Treatments (TreatmentID, PatientID, StaffID, Description, DateTimeID, Datetime) VALUES (1,2,1,'Annual physical examination',NULL,'2024-03-25 11:00:00'),(2,3,2,'Chest X-ray',NULL,'2024-03-27 15:00:00'),(3,4,3,'MRI scan',NULL,'2024-03-29 10:00:00'),(4,5,4,'Knee replacement surgery',NULL,'2024-03-31 12:00:00'),(5,6,5,'Pap smear',NULL,'2024-04-02 14:00:00'),(6,7,6,'Chemotherapy session',NULL,'2024-04-04 16:00:00'),(7,8,7,'Skin biopsy',NULL,'2024-04-06 09:00:00'),(8,9,8,'Prostate exam',NULL,'2024-04-08 11:00:00'),(9,10,9,'Thyroid ultrasound',NULL,'2024-04-10 13:00:00'),(10,11,10,'Psychiatric evaluation',NULL,'2024-04-12 15:00:00'),(11,12,11,'Allergy skin test',NULL,'2024-04-14 17:00:00'),(12,13,12,'Eye examination',NULL,'2024-04-16 19:00:00'),(13,14,13,'Pulmonary function test',NULL,'2024-04-18 10:00:00'),(14,15,14,'Tonsillectomy',NULL,'2024-04-20 12:00:00'),(15,16,15,'Joint injection',NULL,'2024-04-22 14:00:00'),(16,17,16,'Rheumatoid arthritis treatment',NULL,'2024-04-24 16:00:00'),(17,18,17,'Bone marrow biopsy',NULL,'2024-04-26 18:00:00'),(18,19,18,'Endoscopy',NULL,'2024-04-28 08:30:00'),(19,20,19,'Hemodialysis',NULL,'2024-04-30 10:30:00');
+/!40000 ALTER TABLE Treatments ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Table structure for table UpdatedMedicalRecords
+DROP TABLE IF EXISTS UpdatedMedicalRecords;
+/*!40101 SET @saved_cs_client     = @@character_set_client /;
+SET character_set_client = utf8mb4 ;
+CREATE TABLE UpdatedMedicalRecords (
+Username varchar(50) DEFAULT NULL,
+UpdateTime timestamp NULL DEFAULT NULL,
+OldLabTestResults text,
+NewLabTestResults text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Dumping data for table UpdatedMedicalRecords
+LOCK TABLES UpdatedMedicalRecords WRITE;
+/*!40000 ALTER TABLE UpdatedMedicalRecords DISABLE KEYS /;
+/!40000 ALTER TABLE UpdatedMedicalRecords ENABLE KEYS */;
+UNLOCK TABLES;
+--
+-- Dumping events for database 'PROJECT'
+--
+-- Dumping routines for database 'PROJECT'
+/*!50003 DROP FUNCTION IF EXISTS CountInsuredPatients /;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=root@localhost FUNCTION CountInsuredPatients() RETURNS int
+DETERMINISTIC
+BEGIN
+DECLARE insured_count INT;
+SELECT COUNT(DISTINCT p.PatientID)
+INTO insured_count
+FROM Patients p
+JOIN Insurance i ON p.InsuranceID = i.InsuranceID
+WHERE p.InsuranceID IS NOT NULL;
+
+RETURN insured_count;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection / ;
+/!50003 DROP FUNCTION IF EXISTS NumberOfPatientsWhoPaidBills /;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=root@localhost FUNCTION NumberOfPatientsWhoPaidBills() RETURNS int
+DETERMINISTIC
+BEGIN
+DECLARE paid_count INT;
+SELECT COUNT(DISTINCT p.PatientID) INTO paid_count
+FROM Patients p
+JOIN Billing b ON p.PatientID = b.PatientID
+WHERE b.PaymentStatus = 'Paid';
+
+RETURN paid_count;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection / ;
+/!50003 DROP FUNCTION IF EXISTS PatientUnderDoctor /;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+CREATE DEFINER=root@localhost FUNCTION PatientUnderDoctor(StaffID INT) RETURNS varchar(255) CHARSET utf8mb4
+DETERMINISTIC
+BEGIN
+DECLARE patients VARCHAR(255);
+SELECT Name INTO patients
+FROM Treatments t
+JOIN Patients p ON t.PatientID = p.PatientID
+WHERE t.StaffID = StaffID;
+RETURN patients;
+END ;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection / ;
+/!50003 DROP PROCEDURE IF EXISTS TotalRevenue /;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+CREATE DEFINER=root@localhost PROCEDURE TotalRevenue(IN Payment_Status Varchar(255), OUT TotalRevenue DECIMAL(10,2))
+BEGIN
+SELECT SUM(BilledAmount)into TotalRevenue
+FROM Billing
+WHERE PaymentStatus = Payment_Status;
+END ;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection / ;
+/!50003 DROP PROCEDURE IF EXISTS TotalWorkingHoursOfStaff /;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+CREATE DEFINER=root@localhost PROCEDURE TotalWorkingHoursOfStaff(IN Staff_ID INT, OUT TotalHours INT)
+BEGIN
+SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(EndTime, StartTime)))) INTO TotalHours
+FROM Scheduling
+WHERE StaffID = Staff_ID;
+END ;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection / ;
+/!50003 DROP PROCEDURE IF EXISTS UpdateStaffContactInfo /;
+/!50003 SET @saved_cs_client      = @@character_set_client / ;
+/!50003 SET @saved_cs_results     = @@character_set_results / ;
+/!50003 SET @saved_col_connection = @@collation_connection / ;
+/!50003 SET character_set_client  = utf8mb4 / ;
+/!50003 SET character_set_results = utf8mb4 / ;
+/!50003 SET collation_connection  = utf8mb4_0900_ai_ci / ;
+/!50003 SET @saved_sql_mode       = @@sql_mode / ;
+/!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' / ;
+DELIMITER ;;
+CREATE DEFINER=root@localhost PROCEDURE UpdateStaffContactInfo(IN m_StaffID INT,IN m_ContactNumber Varchar(20))
+BEGIN
+UPDATE MedicalStaff
+SET ContactNumber = m_ContactNumber
+WHERE StaffID = m_StaffID;
+END ;;
+DELIMITER ;
+/!50003 SET sql_mode              = @saved_sql_mode / ;
+/!50003 SET character_set_client  = @saved_cs_client / ;
+/!50003 SET character_set_results = @saved_cs_results / ;
+/!50003 SET collation_connection  = @saved_col_connection */ ;
+--
+-- Final view structure for view medicalstaffinformation
+/!50001 DROP VIEW IF EXISTS medicalstaffinformation/;
+/*!50001 SET @saved_cs_client          = @@character_set_client /;
+/!50001 SET @saved_cs_results         = @@character_set_results /;
+/!50001 SET @saved_col_connection     = @@collation_connection /;
+/!50001 SET character_set_client      = utf8mb4 /;
+/!50001 SET character_set_results     = utf8mb4 /;
+/!50001 SET collation_connection      = utf8mb4_0900_ai_ci /;
+/!50001 CREATE ALGORITHM=UNDEFINED /
+/!50013 DEFINER=root@localhost SQL SECURITY DEFINER /
+/!50001 VIEW medicalstaffinformation AS select s.StaffID AS StaffID,m.Name AS Name,m.Specialization AS Specialization,d.DepartmentName AS DepartmentName,m.EmploymentStatus AS EmploymentStatus,m.ContactNumber AS ContactNumber,sc.Date AS ShiftDate,sc.StartTime AS StartTime,sc.EndTime AS EndTime,a.AppointmentType AS AppointmentType,p.Name AS PatientName from (((((staffdepartments s join medicalstaff m on((s.StaffID = m.StaffID))) join scheduling sc on((s.StaffID = sc.StaffID))) join departments d on((s.DepartmentID = d.DepartmentID))) join appointments a on((s.StaffID = a.StaffID))) join patients p on((a.PatientID = p.PatientID))) /;
+/!50001 SET character_set_client      = @saved_cs_client /;
+/!50001 SET character_set_results     = @saved_cs_results /;
+/!50001 SET collation_connection      = @saved_col_connection */;
+--
+-- Final view structure for view patientbillinginformation
+/!50001 DROP VIEW IF EXISTS patientbillinginformation/;
+/*!50001 SET @saved_cs_client          = @@character_set_client /;
+/!50001 SET @saved_cs_results         = @@character_set_results /;
+/!50001 SET @saved_col_connection     = @@collation_connection /;
+/!50001 SET character_set_client      = utf8mb4 /;
+/!50001 SET character_set_results     = utf8mb4 /;
+/!50001 SET collation_connection      = utf8mb4_0900_ai_ci /;
+/!50001 CREATE ALGORITHM=UNDEFINED /
+/!50013 DEFINER=root@localhost SQL SECURITY DEFINER /
+/!50001 VIEW patientbillinginformation AS select p.PatientID AS PatientID,p.Name AS Name,p.Gender AS Gender,b.BillingID AS BillingID,b.DateOfService AS DateOfService,b.PaymentStatus AS PaymentStatus,b.PaymentDetails AS PaymentDetails from (patients p join billing b on((p.PatientID = b.PatientID))) /;
+/!50001 SET character_set_client      = @saved_cs_client /;
+/!50001 SET character_set_results     = @saved_cs_results /;
+/!50001 SET collation_connection      = @saved_col_connection */;
+--
+-- Final view structure for view patienttreatmentdetails
+/!50001 DROP VIEW IF EXISTS patienttreatmentdetails/;
+/*!50001 SET @saved_cs_client          = @@character_set_client /;
+/!50001 SET @saved_cs_results         = @@character_set_results /;
+/!50001 SET @saved_col_connection     = @@collation_connection /;
+/!50001 SET character_set_client      = utf8mb4 /;
+/!50001 SET character_set_results     = utf8mb4 /;
+/!50001 SET collation_connection      = utf8mb4_0900_ai_ci /;
+/!50001 CREATE ALGORITHM=UNDEFINED /
+/!50013 DEFINER=root@localhost SQL SECURITY DEFINER /
+/!50001 VIEW patienttreatmentdetails AS select p.PatientID AS PatientID,p.Name AS Name,t.TreatmentID AS TreatmentID,t2.TreatmentDetailID AS TreatmentDetailID,t2.ProcedureDescription AS ProcedureDescription,t3.DateTime AS DateTime from (((patients p join treatments t on((p.PatientID = t.PatientID))) join treatmentdetails t2 on((t.TreatmentID = t2.TreatmentID))) join treatmentdatetime t3 on((t2.TreatmentID = t3.TreatmentID))) /;
+/!50001 SET character_set_client      = @saved_cs_client /;
+/!50001 SET character_set_results     = @saved_cs_results /;
+/!50001 SET collation_connection      = @saved_col_connection /;
+/!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE /;
+/!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS /;
+/!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS /;
+/!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT /;
+/!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS /;
+/!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION /;
+/!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-- Dump completed on 2024-04-27 15:30:17
